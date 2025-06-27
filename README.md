@@ -1,4 +1,2 @@
--zero failure
-
-
 # ProjectX
+Solo leveling
