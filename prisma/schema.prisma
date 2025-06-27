@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password      String
+  image         String?
+  level         Int       @default(1)
+  currentXp     Int       @default(0)
+  xpToNextLevel Int       @default(100)
+  title         String    @default("Novice Hunter")
+  streak        Int       @default(0)
+  lastLogin     DateTime  @default(now())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  role          Role      @default(USER)
+  stats         Stats?
+  tasks         Task[]
+  goals         Goal[]
+  notes         Note[]
+  reminders     Reminder[]
+  journals      Journal[]
+  inventory     Inventory[]
+}
+
+model Stats {
+  id           String @id @default(cuid())
+  strength     Int    @default(10)
+  intelligence Int    @default(10)
+  discipline   Int    @default(10)
+  health       Int    @default(10)
+  userId       String @unique
+  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  dueDate     DateTime?
+  difficulty  String
+  category    String
+  isRecurring Boolean  @default(false)
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Goal {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  deadline    DateTime
+  type        String
+  progress    Int      @default(0)
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  color     String
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Reminder {
+  id        String   @id @default(cuid())
+  title     String
+  date      DateTime
+  time      String
+  priority  String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Journal {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  date      DateTime
+  tags      String[]
+  mood      String
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Inventory {
+  id          String   @id @default(cuid())
+  name        String
+  type        String
+  rarity      String
+  description String
+  stats       Json
+  createdAt   DateTime @default(now())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Reward {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  xpValue     Int
+  type        String
+  rarity      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}

@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 222 47% 11%;
+  --foreground: 213 31% 91%;
+
+  --muted: 223 47% 11%;
+  --muted-foreground: 215.4 16.3% 56.9%;
+
+  --accent: 216 34% 17%;
+  --accent-foreground: 210 40% 98%;
+
+  --popover: 224 71% 4%;
+  --popover-foreground: 215 20.2% 65.1%;
+
+  --border: 216 34% 17%;
+  --input: 216 34% 17%;
+
+  --card: 224 71% 4%;
+  --card-foreground: 213 31% 91%;
+
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 1.2%;
+
+  --secondary: 222.2 47.4% 11.2%;
+  --secondary-foreground: 210 40% 98%;
+
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+
+  --ring: 216 34% 17%;
+
+  --radius: 0.5rem;
+
+  /* Solo Leveling themed colors */
+  --sl-blue: 201 89% 48%;
+  --sl-dark-blue: 213 77% 14%;
+  --sl-accent: 199 89% 48%;
+  
+  /* Chart colors */
+  --chart-1: var(--sl-blue);
+  --chart-2: 190 80% 50%;
+  --chart-3: 213 70% 40%;
+  --chart-4: 230 60% 50%;
+  --chart-5: 170 80% 40%;
+}
+
+.dark {
+  --background: 222 47% 11%;
+  --foreground: 213 31% 91%;
+
+  --muted: 223 47% 11%;
+  --muted-foreground: 215.4 16.3% 56.9%;
+
+  --accent: 216 34% 17%;
+  --accent-foreground: 210 40% 98%;
+
+  --popover: 224 71% 4%;
+  --popover-foreground: 215 20.2% 65.1%;
+
+  --border: 216 34% 17%;
+  --input: 216 34% 17%;
+
+  --card: 224 71% 4%;
+  --card-foreground: 213 31% 91%;
+
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 1.2%;
+
+  --secondary: 222.2 47.4% 11.2%;
+  --secondary-foreground: 210 40% 98%;
+
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+
+  --ring: 216 34% 17%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: 
+      linear-gradient(
+        to bottom,
+        hsl(var(--background)),
+        hsl(var(--sl-dark-blue))
+      );
+    min-height: 100vh;
+  }
+}
+
+/* Solo Leveling themed animations */
+@keyframes glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px hsl(var(--sl-blue)))
+           drop-shadow(0 0 4px hsl(var(--sl-blue)));
+  }
+  50% {
+    filter: drop-shadow(0 0 6px hsl(var(--sl-blue)))
+           drop-shadow(0 0 8px hsl(var(--sl-blue)));
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.sl-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.sl-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--sl-blue) / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--sl-blue) / 0.5);
+}
+
+/* Card hover effects */
+.card-hover-effect {
+  transition: all 0.3s ease;
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px hsl(var(--sl-blue) / 0.2);
+}
+
+/* Level indicator styles */
+.level-badge {
+  background: linear-gradient(45deg, hsl(var(--sl-blue)), hsl(var(--sl-accent)));
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* XP bar styles */
+.xp-bar {
+  height: 4px;
+  background: hsl(var(--sl-blue) / 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.xp-progress {
+  height: 100%;
+  background: linear-gradient(90deg, hsl(var(--sl-blue)), hsl(var(--sl-accent)));
+  box-shadow: 0 0 8px hsl(var(--sl-blue));
+  transition: width 0.3s ease;
+}
+
+/* Stat increase animation */
+@keyframes statIncrease {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.stat-increase {
+  animation: statIncrease 0.5s ease-out;
+}
